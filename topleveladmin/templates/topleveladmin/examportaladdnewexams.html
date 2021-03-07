@@ -1,0 +1,78 @@
+{% extends 'topleveladmin/base2.html' %}
+{% load static %}
+
+{% block head %}
+
+{% endblock head %}
+
+{% block content %}
+
+{% if message %}
+{% autoescape off %}
+    {{ message }}
+{% endautoescape %}
+{% endif %}
+<form method="POST" class="form-horizontal"  enctype="multipart/form-data">
+{% csrf_token %}
+<div class="card card-primary">
+<div class="card-header">
+    <h3 class="card-title">Add New Exam </h3>
+</div>
+<div class="card-body">
+    <div class="form-group row">
+        <label for="inputtitle" class="col-sm-2 col-form-label">Exam Title</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control"  id="inputtitle" name="title" placeholder="Title (Mandatory)" required autocomplete="off">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputstart" class="col-sm-2 col-form-label">Exam Starts On</label>
+        <div class="col-sm-10">
+            <input type="date"  id="inputstart" name="startdate" required autocomplete="off">
+            <input type="time"  id="inputstart" name="starttime" required autocomplete="off">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputend" class="col-sm-2 col-form-label">Exam Ends On</label>
+        <div class="col-sm-10">
+            <input type="date"  id="inputend" name="enddate" required autocomplete="off">
+            <input type="time"  id="inputend" name="endtime" required autocomplete="off">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputmarks" class="col-sm-2 col-form-label">Total Marks</label>
+        <div class="col-sm-10">
+            <input type="number" class="form-control"  id="inputmarks" name="totalmarks" placeholder="Total Mark (Mandatory)" required autocomplete="off">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputcourse" class="col-sm-2 col-form-label">Course</label>
+        <div class="col-sm-10">
+            <select class="form-control" required autocomplete="off" name="coursename">
+                {# Configure Here Also #}
+                <option selected  disabled value="">Select The Preferred Course For The Student (Mandatory)</option>
+                <option value="cse">CSE</option>
+                <option value="it">IT</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="pdf" class="col-sm-2 col-form-label">Upload Question Paper (IN PDF FORMAT)</label>
+        <div class="col-sm-10">
+            <input type="file" class="form-control"  id="pdf" name="filepdf" placeholder="Question Paper (Mandatory)" required autocomplete="off">
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="card-footer">
+    <button type="submit" class="btn btn-success">Finalize !</button>
+    <button type="reset" class="btn btn-default float-right">Reset</button>
+</div>
+</form>
+{% endblock content %}
+
+
+{% block js %}
+<script src="{% static 'topleveladmin/plugins/bs-custom-file-input/bs-custom-file-input.min.js' %}"></script>
+{% endblock js %}

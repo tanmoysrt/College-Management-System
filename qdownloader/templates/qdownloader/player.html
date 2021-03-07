@@ -1,0 +1,41 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://vjs.zencdn.net/7.8.4/video-js.css" rel="stylesheet" />
+  <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+  <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+</head>
+
+<body>
+
+  <video
+    id="my-video"
+    class="video-js vjs-16-9 vjs-big-play-centered"
+
+  >
+    <source src="{{ source }}" type="{{ type }}" />
+    <p class="vjs-no-js">
+      To view this video please enable JavaScript, and consider upgrading to a
+      web browser that
+      <a href="https://videojs.com/html5-video-support/" target="_blank"
+        >supports HTML5 video</a
+      >
+    </p>
+  </video>
+
+  <a href="{{ downloadlink }}">Click Here To Download</a>
+
+  <script src="https://vjs.zencdn.net/7.8.4/video.js"></script>
+  <script>
+    videojs('my-video',{
+      controls : true,
+      autoplay: true,
+      preload: 'auto',
+      playbackRates: [1, 1.5, 2],
+      responsive : true,
+      fluid: true,
+      aspectRatio: '16:9',
+    })
+  </script>
+</body>
+</html>

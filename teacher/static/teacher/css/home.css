@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap');
+
+body {
+    font-family: Helvetica;
+    margin: 0;
+  }
+  a {
+    text-decoration: none;
+    color: #000;
+  }
+  .site-header { 
+    border-bottom: 1px solid #ccc;
+    padding: .5em 1em;
+  }
+  
+  .site-header::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  .site-identity {
+    float: left;
+    width: 100%;
+    height: 40px;
+  }
+  
+  .site-identity h1 {
+    font-size: 1.8em;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: inline-block;
+    font-family: 'Oswald', sans-serif;
+  }
+  
+  .site-identity img {
+    max-width: 40px;
+    float: left;
+    margin: 0 10px 0 0;
+  }
+
+.site-identity a {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.card-text{
+    font-family: 'Open Sans', sans-serif;
+    font-size: large;
+}
+.card{
+    height: 200px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    padding: 10px;
+}
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+  
+.card-img-top{
+    height: 120px;
+}
+.footer{
+    position: fixed;
+    background-color: white;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    margin: 10px;
+    border-top: 1px solid black;
+}
+@media only screen and (max-width: 370px) {
+    body {
+      background-color: rgb(230, 199, 173);
+    }
+  }

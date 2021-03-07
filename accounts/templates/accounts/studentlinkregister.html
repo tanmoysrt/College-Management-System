@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<form method="post">
+    {% csrf_token %}
+    <a>Name : </a><input type="text" name="name"><br>
+    <a>Phone No : </a><input type="number" name="phone"><br>
+    <a>Email ID : </a><input type="email" name="emailid"><br>
+    <a>Roll No : </a><input type="number" name="rollno"><br>
+    <a>Admission Date : </a><input type="date" name="admissiondate"><br>
+    <a>Serial No : </a><input type="text" name="serialno"><br>
+    <a>Password : </a><input type="password" name="password"><br>
+    <button type="submit">Register</button>
+</form>
+</body>
+</html>

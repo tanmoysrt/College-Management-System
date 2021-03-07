@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Side</title>
+    <link rel="stylesheet" href="{% static 'teacher/css/home.css' %}" />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css"
+      integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://kit.fontawesome.com/53411d17ec.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-identity">
+        <a href="#"
+          ><img
+            src="/media/college_data_white_lableling/logo.jpg"
+            alt="ABC College"
+        /></a>
+        <h1><a>ABC College</a></h1>
+        <a style="float: right" href="{% url 'teacherlogout' %}"
+          ><i
+            class="fa fa-sign-in fa-2x"
+            aria-hidden="true"
+            style="color: red"
+          ></i>
+        </a>
+      </div>
+    </header>
+    <div class="container mt-3">
+        {% for chat in chats %}
+        <div class="card mb-1" onclick="window.location.href = '/student/chat/{{ chat.id }}'" style="height: auto;">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <a>{{ chat.name }}</a>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="footer">
+      <table>
+        <tr>
+          <td><b>Email ID : </b></td>
+          <td><a href="mailto:a@a.com">a@a.com</a></td>
+        </tr>
+        <tr>
+          <td><b>Phone No : </b></td>
+          <td>52596652</td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

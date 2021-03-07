@@ -1,0 +1,192 @@
+{% extends 'topleveladmin/base2.html' %}
+{% load static %}
+{% load studentdata %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'topleveladmin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+<link rel="stylesheet" href="{% static 'topleveladmin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+<link rel="stylesheet" href="{% static 'topleveladmin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}">
+<script>
+  //var csrftoken = Cookies.get('csrftoken');
+  var csrftoken = $.cookie('csrftoken');
+function csrfSafeMethod(method) {
+// these HTTP methods do not require CSRF protection
+return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+  $.ajaxSetup({
+  beforeSend: function(xhr, settings) {
+  if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+  xhr.setRequestHeader("X-CSRFToken", csrftoken);
+  }
+  }
+});
+</script>
+{% endblock head %}
+
+{% block content %}
+    {% if message %}
+        {% autoescape off %}
+            {{ message }}
+        {% endautoescape %}
+    {% endif %}
+
+<div class="container-fluid">
+<!-- Modal -->
+<div class="modal fade" id="answerscriptevaluation" tabindex="-1" aria-labelledby="answerscriptevaluationlabel" aria-hidden="true">
+  <div class="modal-dialog">
+        <form method="post">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="answerscriptevaluationlabel">Evaluation Answer Script</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+
+      <div class="modal-body">
+            {% csrf_token %}
+          <div>
+              <a><b>Name : </b><i><a id="sname"></a></i></a><br>
+              <a><b>Answer Script Link : </b></a><a id="answerlink" target="_blank"></a><br>
+              <a><b>Total Marks : </b></a><a id="answerscripttotalmarks"></a>
+          </div>
+          <input type="hidden" name="answerid" id="answerid">
+          <div class="mb-3">
+            <label for="marks" class="col-form-label">Marks :</label>
+            <input type="number" class="form-control" id="marks" name="marks">
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+        </form>
+  </div>
+</div>
+
+
+
+    <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Asnwer Scripts -- {{ questionpaper.title }}</h3>
+        </div>
+        <div class="card-body">
+          <table id="tb" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                  <th>Name</th>
+                  <th>Phone No</th>
+                  <th>Course</th>
+                  <th>Roll No</th>
+                  <th>Serial No</th>
+                  <th>Admission Date</th>
+                  <th>Submitted On</th>
+                  <th>Status</th>
+                  <th>Answer Script</th>
+                  <th>Marks</th>
+                  <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for answerscript in answerscripts %}
+                <tr>
+                {% define answerscript.studentid|student_data as studentdata %}
+                    <td>{{ studentdata.name }}</td>
+                    <td>{{ studentdata.phoneno }}</td>
+                    <td>{{ studentdata.course }}</td>
+                    <td>{{ studentdata.rollno }}</td>
+                    <td>{{ studentdata.serialno }}</td>
+                    <td>{{ studentdata.admissiondate }}</td>
+                    <td>{{ answerscript.submitted_on }}</td>
+                    <td>
+                        {% if answerscript.evaluated %}
+                            <a style="color: limegreen"><b>Evaluation Done</b></a>
+                            {% else %}
+                            <a style="color: red"><b>Not Evaluated</b></a>
+                        {% endif %}
+                    </td>
+                    <td style="max-width: 100px"><a href="{{ link }}download/answerscript/{{ answerscript.id }}" target="_blank">{{ link }}download/answerscript/{{ answerscript.id }}</a></td>
+                    <td>{{ answerscript.marks }}</td>
+                    <td><button type="button" onclick="show_modal('{{ answerscript.id }}')" class="btn btn-outline-primary">Evaluate</button></td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+            <tfoot>
+              <tr>
+                  <th>Name</th>
+                  <th>Phone No</th>
+                  <th>Course</th>
+                  <th>Roll No</th>
+                  <th>Serial No</th>
+                  <th>Admission Date</th>
+                  <th>Submitted On</th>
+                  <th>Status</th>
+                  <th>Answer Script</th>
+                  <th>Marks</th>
+                  <th>Actions</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+<!-- Modal -->
+
+{% endblock content %}
+
+
+{% block js %}
+<script src="{% static 'topleveladmin/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'topleveladmin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'topleveladmin/plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'topleveladmin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+
+
+<script src="{% static 'topleveladmin/plugins/Buttons-1.6.3/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'topleveladmin/plugins/Buttons-1.6.3/js/buttons.flash.min.js' %}"></script>
+<script src="{% static 'topleveladmin/plugins/JSZip-2.5.0/jszip.min.js' %}"></script>
+<script src="{% static 'topleveladmin/plugins/pdfmake-0.1.36/pdfmake.min.js' %}"></script>
+<script src="{% static 'topleveladmin/plugins/pdfmake-0.1.36/vfs_fonts.js' %}"></script>
+<script src="{% static 'topleveladmin/plugins/Buttons-1.6.3/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'topleveladmin/plugins/Buttons-1.6.3/js/buttons.print.min.js' %}"></script>
+
+<script>
+$(function () {
+$('#tb').DataTable({
+    dom: 'Bfrtip',
+    buttons: [
+        'copy', 'excel','pdf'
+    ],
+  "paging": true,
+  "lengthChange": true,
+  "searching": true,
+  "ordering": true,
+  "info": true,
+  "autoWidth": false,
+  "responsive": true,
+});
+});
+</script>
+<script>
+  function show_modal(id)
+{
+    $.ajax({
+            url: "/adminn/examportal/data/" + id,
+            method: "GET",
+            success: function (data) {
+                console.log(data);
+                $('#answerlink').text("http://127.0.0.1:8000/download/answerscript/"+data.answerid);
+                $('#answerlink').attr("href","http://127.0.0.1:8000/download/answerscript/"+data.answerid);
+                $('#sname').text(data.name);
+                $('#marks').val(data.marks);
+                $('#answerscripttotalmarks').text(data.totalmarks);
+                $('#answerid').val(data.answerid);
+                $('#answerscriptevaluation').modal();
+
+            }
+        }
+    )
+
+}
+</script>
+{% endblock js %}

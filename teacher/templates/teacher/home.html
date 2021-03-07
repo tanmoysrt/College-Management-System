@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Side</title>
+    <link rel="stylesheet" href="{% static 'teacher/css/home.css' %}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/53411d17ec.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="site-identity">
+          <a href="#"><img src="/media/college_data_white_lableling/logo.jpg" alt="ABC College" /></a>
+          <h1><a>ABC College</a></h1>
+          <a style="float: right;" href="{% url 'teacherlogout' %}"><i class="fa fa-sign-in fa-2x" aria-hidden="true" style="color: red;"></i>          </a>
+        </div>  
+      </header>
+      <div class="container text-center">
+     <div class="row">
+         <div class="col-5" style="margin: auto;padding-top: 10px;padding-bottom: 5px;padding-left: 10px;padding-right: 5px;">
+            <div class="card text-center" onclick="window.location.href ='{% url 'teacherpreviousnotes' %}';" >
+                <img src="/media/college_data_white_lableling/note.svg" class="card-img-top" alt="">
+                <div class="card-body">
+                  <p class="card-text">Notes</p>
+                </div>
+              </div>
+         </div>
+         
+         <div class="col-5" style="margin : auto;padding-top: 10px;padding-bottom: 5px;padding-left: 10px;padding-right: 5px;">
+            <div class="card text-center" onclick="window.location.href ='{% url 'teacheruploadnotes' %}';">
+                <img src="/media/college_data_white_lableling/upload.svg" class="card-img-top" alt="">
+                <div class="card-body">
+                  <p class="card-text">Upload</p>
+                </div>
+              </div>
+         </div>
+     </div>
+     <div class="row">
+        <div class="col-5" style="margin: auto;padding-top: 5px;padding-bottom: 10px;padding-left: 10px;padding-right: 5px;">
+           <div class="card text-center" onclick="window.location.href ='{% url 'chatlist' %}';">
+               <img src="/media/college_data_white_lableling/chat.svg" class="card-img-top" alt="">
+               <div class="card-body">
+                 <p class="card-text">Chat</p>
+               </div>
+             </div>
+        </div>
+        <div class="col-5" style="margin : auto;padding-top: 5px;padding-bottom: 10px;padding-left: 10px;padding-right: 5px;">
+           <div class="card text-center" onclick="window.location.href='{% url 'teaherpyq' %}'">
+               <img src="/media/college_data_white_lableling/questions.svg" class="card-img-top" alt="">
+               <div class="card-body">
+                 <p class="card-text">PYQ</p>
+               </div>
+             </div>
+        </div>
+    </div>
+    </div>
+    <div class="footer">
+        <table>
+            <tr>
+                <td><b>Email ID : </b></td>
+                <td><a href="mailto:a@a.com">a@a.com</a></td>
+            </tr>
+            <tr>
+                <td><b>Phone No : </b></td>
+                <td>52596652</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

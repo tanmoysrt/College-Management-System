@@ -1,0 +1,90 @@
+{% extends 'topleveladmin/base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'topleveladmin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+<link rel="stylesheet" href="{% static 'topleveladmin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+<link rel="stylesheet" href="{% static 'topleveladmin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}">
+
+{% endblock head %}
+
+{% block content %}
+<div class="container-fluid">
+<div class="alert alert-default-primary" role="alert">
+    <p>** If the link is "OPEN", then anyone with this link can register and get access without any verification</p>
+    <p>*** If the link is "CLOSED", then anyone registered with this link can only login and access contents after college verification</p>
+</div>
+    <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Registration Link</h3>
+        </div>
+        <div class="card-body">
+          <table id="tb" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                  <th>Course</th>
+                  <th>Details</th>
+                  <th>Link</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for i in tokens %}
+            <tr>
+            <td>{{ i.course }}</td>
+            <td>
+                {% if i.open %}
+                    <a style="text-decoration: none;color: red"><b>OPEN</b></a>
+                    {% else %}
+                    <a style="text-decoration: none;color: #00b44e"><b>CLOSED</b></a>
+                {% endif %}
+            </td>
+            <td><a href="{{ prefix }}{{ i.id }}" target="_blank">{{ prefix }}{{ i.id }}</a></td>
+            </tr>
+            {% endfor %}
+
+            </tbody>
+            <tfoot>
+              <tr>
+                  <th>Course</th>
+                  <th>Details</th>
+                  <th>Link</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+<!-- Modal -->
+
+{% endblock content %}
+
+
+{% block js %}
+<script src="{% static 'topleveladmin/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'topleveladmin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'topleveladmin/plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'topleveladmin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+
+
+<script src="{% static 'topleveladmin/plugins/Buttons-1.6.3/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'topleveladmin/plugins/Buttons-1.6.3/js/buttons.flash.min.js' %}"></script>
+<script src="{% static 'topleveladmin/plugins/JSZip-2.5.0/jszip.min.js' %}"></script>
+<script src="{% static 'topleveladmin/plugins/pdfmake-0.1.36/pdfmake.min.js' %}"></script>
+<script src="{% static 'topleveladmin/plugins/pdfmake-0.1.36/vfs_fonts.js' %}"></script>
+<script src="{% static 'topleveladmin/plugins/Buttons-1.6.3/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'topleveladmin/plugins/Buttons-1.6.3/js/buttons.print.min.js' %}"></script>
+
+<script>
+$(function () {
+$('#tb').DataTable({
+  "paging": true,
+  "lengthChange": true,
+  "searching": true,
+  "ordering": true,
+  "info": false,
+  "autoWidth": true,
+  "responsive": true,
+});
+});
+</script>
+{% endblock js %}

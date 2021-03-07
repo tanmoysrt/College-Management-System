@@ -1,0 +1,94 @@
+{% extends 'topleveladmin/base.html' %}
+{% load static %}
+
+{% block head %}
+
+{% endblock head %}
+    
+{% block content %}
+
+{% if message %}
+{% autoescape off %}
+    {{ message }}
+{% endautoescape %}
+{% endif %}
+<form method="POST" class="form-horizontal"  enctype="multipart/form-data">
+{% csrf_token %}
+<div class="card card-primary">
+<div class="card-header">
+    <h3 class="card-title">Student Registration - Contact Info</h3>
+</div>
+<div class="card-body">
+    <div class="form-group row">
+        <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control"  id="inputName" name="name" placeholder="Name" required autocomplete="off">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputemail" class="col-sm-2 col-form-label">Email ID</label>
+        <div class="col-sm-10">
+            <input type="email" class="form-control"  id="inputemail" name="email" placeholder="Email ID (Not Mandatory)" autocomplete="off">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputphone" class="col-sm-2 col-form-label">Phone No</label>
+        <div class="col-sm-10">
+            <input type="number" class="form-control"  id="inputphone" name="phoneno" placeholder="Phone No (Mandatory)" required autocomplete="off">
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="card card-warning">
+<div class="card-header"><h3 class="card-title">Academic Info</h3></div>
+<div class="card-body">
+    <div class="form-group row">
+        <label for="inputName" class="col-sm-2 col-form-label">Course</label>
+        <div class="col-sm-10">
+            <select class="form-control" required autocomplete="off" name="corsename">
+                {# Configure Here Also #}
+                <option selected  disabled value="">Select The Preferred Course For The Student (Mandatory)</option>
+                <option value="cse">CSE</option>
+                <option value="it">IT</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputrollno" class="col-sm-2 col-form-label">Roll No</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control"  id="inputrollno" name="rollno" placeholder="Roll No (Mandatory)" required autocomplete="off">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputadmissiondate" class="col-sm-2 col-form-label">Admission Date</label>
+        <div class="col-sm-10">
+            <input type="date" class=""  id="inputadmissiondate" name="admissiondate" placeholder="Admission Date(Mandatory)" required autocomplete="off">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputserialno" class="col-sm-2 col-form-label">Serial No</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control"  id="inputserialno" name="serialno" placeholder="Serial No (Mandatory)" required autocomplete="off">
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="card card-success">
+<div class="card-header">
+    <h3 class="card-title">*** The Default Password For Student Login Will Be Their Admission Serial No</h3>
+</div>
+</div>
+<div class="card-footer">
+    <button type="submit" class="btn btn-info">Register</button>
+    <button type="reset" class="btn btn-default float-right">Reset</button>
+</div>
+</div>
+</form>
+{% endblock content %}
+
+
+{% block js %}
+<script src="{% static 'topleveladmin/plugins/bs-custom-file-input/bs-custom-file-input.min.js' %}"></script>
+{% endblock js %}

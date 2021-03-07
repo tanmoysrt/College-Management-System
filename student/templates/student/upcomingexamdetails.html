@@ -1,0 +1,25 @@
+<html lang="en">
+<head>
+    <title>{{ name }}</title>
+</head>
+<body>
+<h3>{{ name }}</h3>
+{% if started %}
+    <a href="{{ link }}" target="_blank">Download Question Paper</a><br>
+    {% else %}
+    <h3>Exam Yet Not Started .... Please refersh after some time</h3><br>
+{% endif %}
+<a><b>Exam will be started on : </b>{{ startdate }} {{ starttime }}</a><br>
+<a><b>Exam will be ended on : </b>{{ enddate }} {{ endtime }}</a><br>
+<a>As soon as exam will be end, the upload windows will be closed.</a><br><br>
+
+{% if canupload %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="answerpaper" required>
+    <button type="submit">Upload Now</button>
+</form>
+{% endif %}
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+{% extends 'topleveladmin/base.html' %}
+{% load static %}
+
+{% block head %}
+
+{% endblock head %}
+    
+{% block content %}
+
+{% if message %}
+{% autoescape off %}
+    {{ message }}
+{% endautoescape %}
+{% endif %}
+    <div style="padding: 5px;margin-bottom: 10px;margin-top: 5px">
+        <button onclick="document.location='/adminn/studentdatas/'" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i>  Back To Student Data
+        </button>
+    </div>
+<form method="POST" class="form-horizontal"  enctype="multipart/form-data">
+{% csrf_token %}
+<div class="card card-primary">
+<div class="card-header">
+    <h3 class="card-title">Student Details Updation - Contact Info</h3>
+</div>
+<div class="card-body">
+    <div class="form-group row">
+        <label for="id" class="col-sm-2 col-form-label">ID</label>
+        <div class="col-sm-10">
+            <input  class="form-control"  id="id" value="{{ user.id }}" disabled>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control"  id="inputName" name="name" value="{{ user.name }}" placeholder="Name" required autocomplete="off">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputemail" class="col-sm-2 col-form-label">Email ID</label>
+        <div class="col-sm-10">
+            <input type="email" class="form-control"  id="inputemail" name="email" value="{{ user.email }}" placeholder="Email ID (Not Mandatory)" autocomplete="off">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputphone" class="col-sm-2 col-form-label">Phone No</label>
+        <div class="col-sm-10">
+            <input type="number" class="form-control"  id="inputphone" name="phoneno" value="{{ user.phoneno }}" placeholder="Phone No (Mandatory)" required autocomplete="off">
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="card card-warning">
+<div class="card-header"><h3 class="card-title">Academic Info</h3></div>
+<div class="card-body">
+    <div class="form-group row">
+        <label for="inputName" class="col-sm-2 col-form-label">Course</label>
+        <div class="col-sm-10">
+            <select class="form-control" required autocomplete="off" name="corsename">
+                {# Configure Here Also #}
+                {% if user.student.course == "cse" %}
+                    <option value="cse" selected>CSE</option>
+                    <option value="it">IT</option>
+                    {% elif user.student.course == "it" %}
+                        <option value="cse">CSE</option>
+                        <option value="it" selected>IT</option>
+                {% endif %}
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputrollno" class="col-sm-2 col-form-label">Roll No</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control"  id="inputrollno" name="rollno" value="{{ user.student.rollno }}" placeholder="Roll No (Mandatory)" required autocomplete="off">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputadmissiondate" class="col-sm-2 col-form-label">Admission Date</label>
+        <div class="col-sm-10">
+            <input value="{{ user.student.admissiondate }}" disabled>
+            <input type="date"   id="inputadmissiondate" name="admissiondate" value="{{ user.student.admissiondate }}" placeholder="Admission Date(Mandatory)" required autocomplete="off">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputserialno" class="col-sm-2 col-form-label">Serial No</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control"  id="inputserialno" name="serialno" value="{{ user.student.serialno }}" placeholder="Serial No (Mandatory)" required autocomplete="off">
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="card-footer">
+    <button type="submit" class="btn btn-info ">Update</button>
+    <button type="reset" class="btn btn-default float-right">Reset</button>
+</div>
+</form>
+{% endblock content %}
+
+
+{% block js %}
+<script src="{% static 'topleveladmin/plugins/bs-custom-file-input/bs-custom-file-input.min.js' %}"></script>
+{% endblock js %}
